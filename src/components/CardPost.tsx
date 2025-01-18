@@ -2,8 +2,8 @@ import { Interacoes } from "./Interacoes";
 
 export default function CardPost() {
   return (
-    <div>
-      <div className="block rounded-lg bg-[#222222] shadow-secondary-1 dark:bg-surface-dark m-8 mb-1 rounded-none p-4">
+    <div className="font-oldStandard">
+      <div className="block rounded-lg bg-neutral-800 shadow-secondary-1 dark:bg-surface-dark m-8 mb-1 rounded-none p-4">
         <div className="px-1 py-4">
           <p className="text-gray-300 text-2xl px-8">
             &quot;Ser ou não ser, eis a questão.&quot;

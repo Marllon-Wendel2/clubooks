@@ -13,7 +13,8 @@ export default {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        playwrite: ['"Playwrite VN"', "serif"],
+        playwrite: ['"Oleo Script Swash Caps"', "cursive"],
+        oldStandard: ['"Old Standard TT"', "static"],
       },
     },
   },
