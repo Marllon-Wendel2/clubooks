@@ -3,7 +3,7 @@ import Image from "next/image";
 export function Interacoes() {
   return (
     <div>
-      <ul className="flex space-x-6 bg-neutral-800 p-4 rounded-3xl">
+      <ul className="flex space-x-2 bg-neutral-800 p-1 rounded-3xl">
         <li>
           <button className="focus:outline-none hover:border-solid hover:border-2 hover:border-white p-1 rounded-full">
             <Image
