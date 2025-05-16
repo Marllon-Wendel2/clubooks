@@ -1,8 +1,79 @@
 "use client";
+import axios from "axios";
+import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function LoginPage() {
-  const handleSubmit = async () => {};
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!email || !password) {
+      toast.error("Por favor, preencha todos os campos!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/auth/signin",
+        {
+          email: email,
+          password: password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response);
+
+      if (response.status === 201) {
+        localStorage.setItem("token", response.data);
+        toast.success("Login realizado com sucesso!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+    } catch (error) {
+      let errorMessage = "Erro ao fazer login!";
+
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 400) {
+          errorMessage =
+            error.response.data?.message ||
+            "Dados inválidos. Verifique seu email e senha.";
+        }
+        // Removido o console.error
+      }
+
+      toast.error(errorMessage, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
@@ -15,7 +86,7 @@ export default function LoginPage() {
             <p className="text-gray-400">Faça login para continuar</p>
           </div>
 
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label
                 htmlFor="email"
@@ -28,6 +99,8 @@ export default function LoginPage() {
                 id="email"
                 className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="seu@email.com"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
               />
             </div>
 
@@ -43,6 +116,8 @@ export default function LoginPage() {
                 id="password"
                 className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="••••••••"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
               />
             </div>
 
@@ -87,6 +162,7 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

@@ -11,8 +11,8 @@ const UserContext = createContext<{
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const [windowSize, setWindowSize] = useState<WindowsSize>({
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: typeof window !== "undefined" ? window.innerWidth : 0,
+    height: typeof window !== "undefined" ? window.innerHeight : 0,
   });
 
   const [user, setUser] = useState<UserPayload | null>(null);
