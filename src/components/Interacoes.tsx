@@ -1,11 +1,13 @@
 import Image from "next/image";
+import { Poster } from "@/app/interfaces/Poster";
 
-export function Interacoes() {
+export function Interacoes(post: { post: Poster }) {
   return (
     <div>
-      <ul className="flex space-x-2 bg-neutral-800 p-1 rounded-3xl">
+      <ul className="flex items-center space-x-2 bg-neutral-800 p-1 rounded-3xl">
         <li>
-          <button className="focus:outline-none hover:border-solid hover:border-2 hover:border-white p-1 rounded-full">
+          <button className="flex items-center gap-2 text-white focus:outline-none hover:border-2 hover:border-white p-1 rounded-full">
+            <p className="mt-1">{post.post.likes.toString()}</p>
             <Image
               src={"Like 1.svg"}
               width={20}
@@ -15,43 +17,37 @@ export function Interacoes() {
           </button>
         </li>
         <li>
-          <button className="focus:outline-none hover:border-solid hover:border-2 hover:border-white p-1 rounded-full">
+          <button className="flex items-center text-white focus:outline-none hover:border-2 hover:border-white p-1 rounded-full">
             <Image
               src={"Comentários 1.svg"}
               width={20}
               height={20}
-              alt="botao de like"
+              alt="botao de comentários"
             />
           </button>
         </li>
         <li>
-          <button className="focus:outline-none hover:border-solid hover:border-2 hover:border-white p-1 rounded-full">
+          <button className="flex items-center text-white focus:outline-none hover:border-2 hover:border-white p-1 rounded-full">
             <Image
               src={"Bookmark.svg"}
               width={20}
               height={20}
-              alt="botao de like"
+              alt="botao de salvar"
             />
           </button>
         </li>
         <li>
-          <button className="focus:outline-none hover:border-solid hover:border-2 hover:border-white p-1 rounded-full">
+          <button className="flex items-center text-white focus:outline-none hover:border-2 hover:border-white p-1 rounded-full">
             <Image
               src={"Share.svg"}
               width={20}
               height={20}
-              alt="botao de like"
+              alt="botao de compartilhar"
             />
           </button>
         </li>
-        <li className="flex text-white space-x-1">
-          <Image
-            src={"Icon.svg"}
-            width={20}
-            height={20}
-            alt="botao de like"
-            className="ml-4"
-          />
+        <li className="flex items-center text-white ml-4 gap-1">
+          <Image src={"Icon.svg"} width={20} height={20} alt="ícone" />
           <p>16k</p>
         </li>
       </ul>

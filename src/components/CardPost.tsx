@@ -1,34 +1,8 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { Interacoes } from "./Interacoes";
-import { clubooksApi } from "@/utilities/clubooks-api";
-
-interface Poster {
-  _id: string;
-  type: string;
-  likes: number;
-  date: string;
-  author: User;
-  comments: Comments[];
-  content: string;
-}
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  username: string;
-  phone: string;
-  followers: string[];
-  following: string[];
-  date_birth: string;
-  avatar: string;
-}
-
-interface Comments {
-  userId: string;
-  comment: string;
-}
+import { clubooksApi } from "@/app/Service/clubooks-api";
+import { Poster } from "@/app/interfaces/Poster";
 
 export default function CardPost() {
   const [data, setData] = useState<Poster[]>([]);
@@ -36,9 +10,13 @@ export default function CardPost() {
   const skipRef = useRef(0);
   const loaderRef = useRef(null);
   const [hasMore, setHasMore] = useState(true);
+  const [errorExist, setErrorExist] = useState(false);
 
   const handleData = async () => {
     try {
+      if (errorExist) {
+        return;
+      }
       const response = await clubooksApi.getPosters(skipRef.current);
       setLoading(true);
 
@@ -48,19 +26,22 @@ export default function CardPost() {
         setData((prev) => [...prev, ...response.data]);
         skipRef.current += 10;
         window.scrollBy({
-          top: -10,
-          behavior: "instant",
+          top: -15,
+          behavior: "auto",
         });
       }
     } catch (error) {
+      setErrorExist(true);
       console.error("Error fetching data:", error);
     } finally {
-      setLoading(false);
+      if (!errorExist) {
+        setLoading(false);
+      }
     }
   };
 
   useEffect(() => {
-    handleData(); // chamada inicial
+    handleData();
   }, []);
 
   useEffect(() => {
@@ -105,7 +86,7 @@ export default function CardPost() {
         </div>
       </div>
       <div className="flex justify-start ml-7">
-        <Interacoes />
+        <Interacoes post={post} />
       </div>
     </div>
   );

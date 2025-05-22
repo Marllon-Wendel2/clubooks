@@ -1,5 +1,6 @@
 "use client";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -7,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,6 +52,7 @@ export default function LoginPage() {
           draggable: true,
           progress: undefined,
         });
+        router.push("/");
       }
     } catch (error) {
       let errorMessage = "Erro ao fazer login!";
