@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import * as Cookies from "js-cookie";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -42,17 +43,12 @@ export default function LoginPage() {
       console.log(response);
 
       if (response.status === 201) {
-        localStorage.setItem("token", response.data);
+        Cookies.default.set("token", response.data, { expires: 1 });
         toast.success("Login realizado com sucesso!", {
           position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
+          autoClose: 3000,
+          onClose: () => router.push("/"),
         });
-        router.push("/");
       }
     } catch (error) {
       let errorMessage = "Erro ao fazer login!";
@@ -77,7 +73,6 @@ export default function LoginPage() {
       });
     }
   };
-
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
       <div className="w-full max-w-md bg-gray-800 rounded-lg shadow-lg overflow-hidden">

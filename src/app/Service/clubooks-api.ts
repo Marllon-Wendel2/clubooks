@@ -1,6 +1,7 @@
 import { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 import axios from "axios";
 import { toast } from "react-toastify";
+import * as Cookies from "js-cookie";
 
 class ClubooksApi {
   private api: AxiosInstance;
@@ -17,7 +18,7 @@ class ClubooksApi {
 
     this.api.interceptors.request.use(
       (config) => {
-        const token = localStorage.getItem("token");
+        const token = Cookies.default.get("token");
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
         }
@@ -52,12 +53,12 @@ class ClubooksApi {
 }
 
 export const clubooksApi = new ClubooksApi();
-function logout() {
-  localStorage.removeItem("token");
+export function logout() {
+  Cookies.default.remove("token");
 
   toast.error("Você está deslogado, por favor realize o login novamente!", {
     onClose: () => {
-      window.location.href = "/Login";
+      window.location.href = "/login";
     },
   });
 }
