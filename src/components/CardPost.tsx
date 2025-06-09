@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { Interacoes } from "./Interacoes";
-import { clubooksApi } from "@/app/Service/clubooks-api";
+import { clubooksApi } from "@/app/service/clubooks-api";
 import { Poster } from "@/app/interfaces/Poster";
 
 export default function CardPost() {

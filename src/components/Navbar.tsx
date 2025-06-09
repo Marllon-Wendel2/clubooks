@@ -1,5 +1,5 @@
 "use client";
-import { logout } from "@/app/Service/clubooks-api";
+import { logout } from "@/app/service/clubooks-api";
 import Image from "next/image";
 
 export default function Navbar() {
