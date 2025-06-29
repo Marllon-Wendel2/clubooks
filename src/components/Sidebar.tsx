@@ -14,39 +14,55 @@ export default function Sidebar({ userData }: SidebarProps) {
   }, [user]);
 
   return (
-    <aside className="w-64 h-screen bg-gray-800 text-white p-4">
-      <div className="flex items-center mb-6">
+    <aside className="w-80 h-100  text-white p-8">
+      <div className="flex items-center mb-6 flex-col bg-neutral-900 p-8 rounded-xl">
         <Image
-          width={48}
-          height={48}
+          width={150}
+          height={200}
           src={user.userImg || "/default-avatar.png"}
           alt="User Avatar"
-          className="w-12 h-12 rounded-full mr-4"
+          className="w-30 h-30 rounded-2xl mr-4 mt-6 border border-white"
         />
-        <div>
-          <h2 className="text-lg font-semibold">{user.userName}</h2>
-          <p className="text-sm">{user.email}</p>
-        </div>
+        <h2 className="text-lg font-semibold">{user.userName}</h2>
       </div>
-      <nav>
+      <nav className="mb-10">
         <ul>
-          <li className="mb-4">
-            <Link href="/" className="text-gray-300 hover:text-white">
-              Home
+          <li className="mb-4 bg-neutral-900 text-center h-8 rounded-sm">
+            <Link
+              href="/perfil"
+              className="text-gray-300 hover:text-white align-middle"
+            >
+              PERFIL
             </Link>
           </li>
-          <li className="mb-4">
-            <a href="/profile" className="text-gray-300 hover:text-white">
-              Profile
+          <li className="mb-4 bg-neutral-900 text-center h-8 rounded-sm">
+            <a href="/marcações" className="text-gray-300 hover:text-white">
+              MARCAÇÕES
             </a>
           </li>
-          <li className="mb-4">
+          <li className="mb-4 bg-neutral-900 text-center h-8 rounded-sm">
+            <a href="/books" className="text-gray-300 hover:text-white">
+              MEUS LIVROS
+            </a>
+          </li>
+          <li className="mb-4 bg-neutral-900 text-center h-8 rounded-sm">
+            <a href="/comunidade" className="text-gray-300 hover:text-white">
+              COMUNIDADE
+            </a>
+          </li>
+          <li className="mb-4 bg-neutral-900 text-center h-8 rounded-sm">
             <a href="/settings" className="text-gray-300 hover:text-white">
-              Settings
+              CONFIGURAÇÕES
             </a>
           </li>
         </ul>
       </nav>
+      <div className="flex flex-col text-center mb-9">
+        <h3>SEUS DESTAQUES</h3>
+      </div>
+      <div className="flex flex-col text-center mb-9">
+        <h3>SEUS LIVROS</h3>
+      </div>
     </aside>
   );
 }
