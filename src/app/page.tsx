@@ -5,14 +5,19 @@ import { ToastContainer } from "react-toastify";
 import { useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
 import Sidebar from "@/components/Sidebar";
+import SideNotification from "@/components/SideNotification";
 
 export default function Home() {
   const { isMobile, userData } = useContext(AuthContext)!;
 
   if (!isMobile) {
     return (
-      <section className="flex">
+      <section className="flex align-middle justify-center">
         <Sidebar userData={userData} />
+        <div className="flex-col">
+          <CardPost></CardPost>
+        </div>
+        <SideNotification />
       </section>
     );
   }

@@ -2,6 +2,7 @@ interface SidebarProps {
   userData: string;
 }
 
+import { logout } from "@/app/service/clubooks-api";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
@@ -19,7 +20,7 @@ export default function Sidebar({ userData }: SidebarProps) {
         <Image
           width={150}
           height={200}
-          src={user.userImg || "/default-avatar.png"}
+          src={user.userImg || "Icon.svg"}
           alt="User Avatar"
           className="w-30 h-30 rounded-2xl mr-4 mt-6 border border-white"
         />
@@ -54,6 +55,14 @@ export default function Sidebar({ userData }: SidebarProps) {
             <a href="/settings" className="text-gray-300 hover:text-white">
               CONFIGURAÇÕES
             </a>
+          </li>
+          <li className="mb-4 bg-neutral-900 text-center h-8 rounded-sm">
+            <p
+              onClick={logout}
+              className="text-gray-300 hover:text-white cursor-pointer"
+            >
+              SAIR
+            </p>
           </li>
         </ul>
       </nav>

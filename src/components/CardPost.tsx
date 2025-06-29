@@ -1,8 +1,9 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Interacoes } from "./Interacoes";
 import { clubooksApi } from "@/app/service/clubooks-api";
 import { Poster } from "@/app/interfaces/Poster";
+import { AuthContext } from "@/app/Context/AuthContext";
 
 export default function CardPost() {
   const [data, setData] = useState<Poster[]>([]);
@@ -11,6 +12,7 @@ export default function CardPost() {
   const loaderRef = useRef(null);
   const [hasMore, setHasMore] = useState(true);
   const [errorExist, setErrorExist] = useState(false);
+  const { isMobile } = useContext(AuthContext)!;
 
   const handleData = async () => {
     try {
@@ -75,7 +77,13 @@ export default function CardPost() {
         className="h-[0.3px] bg-gray-200 w-[90%] mt-6 mx-auto"
         style={{ backgroundColor: "rgba(156, 163, 175, 0.5)" }}
       ></div>
-      <div className="block bg-neutral-800 shadow-secondary-1 dark:bg-surface-dark m-8 mb-0 rounded-none p-4">
+      <div
+        className={
+          isMobile
+            ? "block bg-neutral-800 shadow-secondary-1 dark:bg-surface-dark m-8 mb-0 rounded-none p-4"
+            : "block bg-neutral-800 shadow-secondary-1 dark:bg-surface-dark m-8 mb-0 rounded-none p-40"
+        }
+      >
         <div className="px-1 py-4">
           <p className="text-gray-300 text-2xl px-8">
             &quot;{post.content || "No content available"}&quot;
