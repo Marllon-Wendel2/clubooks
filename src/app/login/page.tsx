@@ -4,7 +4,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import * as Cookies from "js-cookie";
+import { clubooksApi } from "../service/clubooks-api";
+import Cookies from "js-cookie";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -28,22 +29,10 @@ export default function LoginPage() {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/auth/signin",
-        {
-          email: email,
-          password: password,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log(response);
+      const result = await clubooksApi.login(email, password);
 
-      if (response.status === 201) {
-        Cookies.default.set("token", response.data, { expires: 1 });
+      if (result.status === 201) {
+        Cookies.set("token", result.data, { expires: 1 });
         toast.success("Login realizado com sucesso!", {
           position: "top-right",
           autoClose: 3000,
@@ -59,7 +48,6 @@ export default function LoginPage() {
             error.response.data?.message ||
             "Dados inválidos. Verifique seu email e senha.";
         }
-        // Removido o console.error
       }
 
       toast.error(errorMessage, {

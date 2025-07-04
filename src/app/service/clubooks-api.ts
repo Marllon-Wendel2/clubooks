@@ -1,7 +1,6 @@
 import { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 import axios from "axios";
-import { toast } from "react-toastify";
-import * as Cookies from "js-cookie";
+import Cookies from "js-cookie";
 
 class ClubooksApi {
   private api: AxiosInstance;
@@ -9,7 +8,7 @@ class ClubooksApi {
 
   constructor() {
     this.api = axios.create({
-      baseURL: "http://localhost:8080",
+      baseURL: process.env.NEXT_PUBLIC_API_URL,
       timeout: 10000,
       headers: {
         "Content-Type": "application/json",
@@ -18,7 +17,7 @@ class ClubooksApi {
 
     this.api.interceptors.request.use(
       (config) => {
-        const token = Cookies.default.get("token");
+        const token = Cookies.get("token");
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
         }
@@ -40,6 +39,17 @@ class ClubooksApi {
     );
   }
 
+  async getTop5Books(): Promise<AxiosResponse> {
+    try {
+      return await this.api.get("/books/top-5");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error.response?.data || "Erro ao buscar os livros";
+      }
+      throw error;
+    }
+  }
+
   async getPosters(skip: number): Promise<AxiosResponse> {
     const url = skip !== 0 ? `/poster?skip=${skip}` : "/poster";
     return this.api.get(url);
@@ -50,15 +60,29 @@ class ClubooksApi {
       token,
     });
   }
+
+  async login(email: string, password: string): Promise<AxiosResponse> {
+    try {
+      const response = await this.api.post("auth/signin", {
+        email,
+        password,
+      });
+      if (response.status === 201) {
+        Cookies.set("token", response.data, { expires: 1 });
+      }
+      return response;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error.response?.data || "Erro ao fazer login";
+      }
+      throw error;
+    }
+  }
 }
 
 export const clubooksApi = new ClubooksApi();
-export function logout() {
-  Cookies.default.remove("token");
 
-  toast.error("Você está deslogado, por favor realize o login novamente!", {
-    onClose: () => {
-      window.location.href = "/login";
-    },
-  });
+export function logout() {
+  Cookies.remove("token");
+  window.location.href = "/login";
 }
