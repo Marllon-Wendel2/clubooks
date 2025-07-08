@@ -3,3 +3,15 @@ export interface UserPayload {
   email: string;
   sub: string;
 }
+
+export interface User {
+  name: string;
+  userName: string;
+  email: string;
+  _id: string;
+  phone: string;
+  avatar: string;
+  date_birth: string;
+}
+
+export type UpdateUserDto = Partial<User>

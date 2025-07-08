@@ -1,6 +1,7 @@
 import { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { UpdateUserDto } from "../interfaces/User";
 
 class ClubooksApi {
   private api: AxiosInstance;
@@ -74,6 +75,40 @@ class ClubooksApi {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         throw error.response?.data || "Erro ao fazer login";
+      }
+      throw error;
+    }
+  }
+
+  async getUserProfile(id: string): Promise<AxiosResponse> {
+    try {
+      const result = await this.api.get(`users/${id}`);
+
+      if (result.status === 200) {
+        return result;
+      } else {
+        throw new Error("Erro ao buscar o perfil do usuário");
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error.response?.data || "Erro ao buscar o perfil do usuário";
+      }
+      throw error;
+    }
+  }
+
+  async updateUserProfile(id: string, data: UpdateUserDto): Promise<AxiosResponse> {
+    try {
+      const result = await this.api.patch(`users/${id}`, data)
+
+      if (result.status === 200) {
+        return result;
+      } else {
+        throw new Error("Erro ao buscar o perfil do usuário");
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw error.response?.data || "Erro ao buscar o perfil do usuário";
       }
       throw error;
     }

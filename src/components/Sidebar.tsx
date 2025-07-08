@@ -30,7 +30,7 @@ export default function Sidebar({ userData }: SidebarProps) {
         <ul>
           <li className="mb-4 bg-neutral-900 text-center h-8 rounded-sm">
             <Link
-              href="/perfil"
+              href={`/profile/${user.sub}`}
               className="text-gray-300 hover:text-white align-middle"
             >
               PERFIL
