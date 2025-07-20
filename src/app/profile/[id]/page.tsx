@@ -2,8 +2,7 @@
 import { AuthContext } from "@/app/Context/AuthContext";
 import ProfileForm from "@/components/FormPerfil";
 import Navbar from "@/components/Navbar";
-import Sidebar from "@/components/Sidebar";
-import SidebarProfile from "@/components/SideProfile";
+import SidebarProfile from "@/components/SidesBars/SideProfile";
 
 import { useContext } from "react";
 import { ToastContainer } from "react-toastify";

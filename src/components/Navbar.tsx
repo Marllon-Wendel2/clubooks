@@ -2,32 +2,9 @@
 import {  logout } from "@/app/service/clubooks-api";
 import Image from "next/image";
 import Link from "next/link";
-// import { useEffect, useState } from "react";
-// import { jwtDecode } from 'jwt-decode';
-// import Cookies from 'js-cookie';
 
 export default function Navbar() {
-  // const [user, setUser] = useState<User | null>(null)
 
-  // useEffect(() => {
-  //   handleUser()
-  // }, []);
-
-  // const handleUser = async () => {
-  //   const token = Cookies.get('token');
-  //   if (!token) {
-  //     console.error('No token found');
-  //     return;
-  //   }
-  //   const decoded = jwtDecode<any>(token);
-  //   const userId = decoded.sub;
-  //   try {
-  //     const response = await clubooksApi.getUserProfile(userId)
-  //     setUser(response.data)
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  // }
 
   return (
     <div className="bg-neutral-900 w-full h-12 flex items-center justify-between px-4 color">

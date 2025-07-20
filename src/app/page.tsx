@@ -4,8 +4,8 @@ import CardPost from "@/components/CardPost";
 import { ToastContainer } from "react-toastify";
 import { useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
-import Sidebar from "@/components/Sidebar";
-import SideNotification from "@/components/SideNotification";
+import Sidebar from "@/components/SidesBars/Sidebar";
+import SideNotification from "@/components/SidesBars/SideNotification";
 
 export default function Home() {
   const { isMobile, userData } = useContext(AuthContext)!;
